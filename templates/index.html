@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI News Headline Analyzer</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- ========================================
+             PAGE TITLE
+        ========================================= -->
+
+        <h1 class="title">
+            📰 AI News Headline Analyzer
+        </h1>
+
+
+        <p class="description">
+            Analyze the language and structure of a news headline using AI.
+        </p>
+
+
+
+        <!-- ========================================
+             HEADLINE INPUT
+        ========================================= -->
+
+        <input
+            type="text"
+            class="headline-input"
+            placeholder="Enter a news headline..."
+        >
+
+
+
+        <!-- ========================================
+             BUTTONS
+        ========================================= -->
+
+        <div class="button-group">
+
+            <button
+                class="analyze-button"
+                onclick="analyzeHeadline()"
+            >
+                🔍 Analyze with AI
+            </button>
+
+
+            <button
+                class="demo-button"
+                onclick="demoAnalysis()"
+            >
+                🎭 Demo Analysis
+            </button>
+
+
+            <button
+                class="clear-button"
+                onclick="clearAnalysis()"
+            >
+                🧹 Clear
+            </button>
+
+        </div>
+
+
+
+        <!-- ========================================
+             ERROR MESSAGE
+        ========================================= -->
+
+        <div
+            class="error-message"
+            id="error-message"
+        >
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+
+            <div class="error-content">
+
+                <h3>
+                    AI Analysis Temporarily Unavailable
+                </h3>
+
+
+                <p id="error-text">
+                    Gemini is currently unavailable.
+                    Please try again later.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================================
+             RESULTS
+        ======================================== -->
+
+        <div
+            class="results"
+            id="results"
+        >
+
+
+            <!-- ====================================
+                 EMOTIONAL LANGUAGE
+            ===================================== -->
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🧠
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Emotional Language
+                    </h2>
+
+
+                    <p id="emotional-language">
+                        —
+                    </p>
+
+
+                    <!-- LEVEL BAR -->
+
+                    <div class="level-bar-container">
+
+                        <div
+                            class="level-bar"
+                            id="emotional-level-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <span
+                        class="level-label"
+                        id="emotional-level-label"
+                    >
+                        —
+                    </span>
+
+
+                    <!-- =================================
+                         AI DETECTED PHRASES
+                    ================================== -->
+
+                    <div
+                        class="ai-detail-section"
+                        id="emotional-phrases-section"
+                    >
+
+                        <h3>
+                            🔎 Detected Phrases
+                        </h3>
+
+
+                        <div
+                            class="phrase-list"
+                            id="emotional-phrases"
+                        >
+
+                            <span class="empty-detail">
+                                No phrases detected yet.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 CLICKBAIT POSSIBILITY
+            ===================================== -->
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🎯
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Clickbait Possibility
+                    </h2>
+
+
+                    <p id="clickbait">
+                        —
+                    </p>
+
+
+                    <!-- LEVEL BAR -->
+
+                    <div class="level-bar-container">
+
+                        <div
+                            class="level-bar"
+                            id="clickbait-level-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <span
+                        class="level-label"
+                        id="clickbait-level-label"
+                    >
+                        —
+                    </span>
+
+
+                    <!-- =================================
+                         AI DETECTED PATTERNS
+                    ================================== -->
+
+                    <div
+                        class="ai-detail-section"
+                        id="clickbait-patterns-section"
+                    >
+
+                        <h3>
+                            🎯 Detected Patterns
+                        </h3>
+
+
+                        <div
+                            class="pattern-list"
+                            id="clickbait-patterns"
+                        >
+
+                            <span class="empty-detail">
+                                No patterns detected yet.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 WARNING SIGNS
+            ===================================== -->
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    ⚠️
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Warning Signs
+                    </h2>
+
+
+                    <ul id="warning-signs">
+
+                        <li>
+                            —
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 THINGS TO VERIFY
+            ===================================== -->
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🔎
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Things to Verify
+                    </h2>
+
+
+                    <ul id="things-to-verify">
+
+                        <li>
+                            —
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 CAREFUL ANALYSIS
+            ===================================== -->
+
+            <div class="result-card analysis-card">
+
+                <div class="result-icon">
+                    📝
+                </div>
+
+
+                <div class="result-content">
+
+                    <h2>
+                        Careful Analysis
+                    </h2>
+
+
+                    <p id="careful-analysis">
+                        —
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+
+</body>
+
+</html>
